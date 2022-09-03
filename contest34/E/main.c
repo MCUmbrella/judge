@@ -7,7 +7,7 @@ int f(int* m, int n)
         for(int j=1; j!=n+1; j++)
         {
             //printf("%d\n", m[i*(n+2) + j]);
-            if(m[i*(n+2) + j]==0 || m[i*(n+2) + j]==-1) continue;
+            if(m[i*(n+2) + j]==-1) continue;
             int mines=0;
             if(m[(i-1)*(n+2) + j-1]==-1) mines++;
             if(m[(i-1)*(n+2) + j]==-1) mines++;
