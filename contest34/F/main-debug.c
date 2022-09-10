@@ -22,6 +22,7 @@ void printMap()
 }
 void color(int width, int line, int col, int mode)
 {
+    printf("%d @(%d, %d)\n", width, line, col);
     switch(mode%4)
     {
         case 0: // RB
