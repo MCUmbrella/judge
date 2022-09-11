@@ -2,15 +2,15 @@
 #include<stdlib.h>
 #include<string.h>
 
-char in[16384];
-char out[16384];
+char in[131072];
+char out[131072];
 
 int main(int argc, char** argv)
 {
     char curChr=0;
     char curCnt=1;
 
-    scanf("%16383[^\n]", in);
+    scanf("%131071[^\n]", in);
 
     curChr=in[0];
     for(size_t i=0; i!=strlen(in); i++)
