@@ -5,18 +5,30 @@
 
 using namespace std;
 
-string types[3]={"int", "char", "double"};
+string types[3]={"int","char","double"};
+string reserved[8]={"if","else","switch","for","while","int","char","double"};
 
-bool checkName(const char* str)
+bool isValidName(string str)
 {
     if(str[0] >= '0' && str[0] <= '9') return 0;
-    for(size_t i=0; i!=strlen(str); i++)
+    for(size_t i=0; i!=str.length(); i++)
     {
         char c=str[i];
         if(!( (c>='0'&&c<='9') || (c>='A'&&c<='Z') || (c>='a'&&c<='z') || c=='_' ))
             return 0;
     }
+    for(int i=0; i!=8; i++)
+        if(str == reserved[i])
+            return 0;
     return 1;
+}
+
+bool isValidType(string str)
+{
+    for(int i=0; i!=3; i++)
+        if(str == types[i])
+            return 1;
+    return 0;
 }
 
 int main(int argc, char** argv)
@@ -30,13 +42,7 @@ int main(int argc, char** argv)
         for(int j=0; j!=4; j++)
             cin>>in[j];
 
-        for(int j=0; j!=3; j++)
-            if(in[0] == types[j]) goto a;
-        cout<<"Wrong!"<<endl;
-        continue;
-
-        a:
-        if(!checkName(in[1].c_str()))
+        if(!isValidName(in[1]) || !isValidType(in[0]))
         {
             cout<<"Wrong!"<<endl;
             continue;
