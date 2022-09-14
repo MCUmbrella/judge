@@ -38,11 +38,8 @@ int main(int argc, char **argv)
     while(it0 != records.end())
     {
         if (it0 -> first == (it0 + 1) -> first && it0 -> second == (it0 + 1) -> second)
-        {
             it0 = records.erase(it0);
-            continue;
-        }
-        ++it0;
+        else ++it0;
     }
 
     auto it = records.begin();
