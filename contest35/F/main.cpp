@@ -7,18 +7,6 @@ using namespace std;
 
 vector<pair<string, int>> records;
 
-void addRecord(string id, int weight)
-{
-    auto it = records.begin();
-    while (it != records.end())
-    {
-        if (it->first == id && it->second == weight)
-            return;
-        ++it;
-    }
-    records.emplace_back(pair<string, int>(id, weight));
-}
-
 int main(int argc, char **argv)
 {
     int a;
@@ -29,7 +17,7 @@ int main(int argc, char **argv)
         string id;
         int weight;
         cin >> id >> weight;
-        addRecord(id, weight);
+        records.emplace_back(pair<string, int>(id, weight));
     }
 
     sort(records.begin(), records.end(), [](pair<string, int> a, pair<string, int> b)
@@ -44,6 +32,17 @@ int main(int argc, char **argv)
              { return a.second < b.second; });
         ++its2;
         its1 = its2;
+    }
+
+    auto it0 = records.begin();
+    while(it0 != records.end())
+    {
+        if (it0 -> first == (it0 + 1) -> first && it0 -> second == (it0 + 1) -> second)
+        {
+            it0 = records.erase(it0);
+            continue;
+        }
+        ++it0;
     }
 
     auto it = records.begin();
