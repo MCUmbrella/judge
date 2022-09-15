@@ -1,14 +1,26 @@
 #include <algorithm>
 #include <iostream>
-#include <utility>
 #include <vector>
 
 using namespace std;
 
-vector<pair<string, int>> records;
+struct record
+{
+    string id;
+    int weight;
+
+    record(string id, int weight)
+    {
+        this -> id = id;
+        this -> weight = weight;
+    }
+};
+
+vector<record> records;
 
 int main(int argc, char **argv)
 {
+    records.reserve(131072);
     int a;
     cin >> a;
 
@@ -17,35 +29,32 @@ int main(int argc, char **argv)
         string id;
         int weight;
         cin >> id >> weight;
-        records.emplace_back(pair<string, int>(id, weight));
+        records.emplace_back(record(id, weight));
     }
 
-    sort(records.begin(), records.end(), [](pair<string, int> a, pair<string, int> b)
-         { return a.first > b.first; });
+    sort(records.begin(), records.end(), [](record a, record b)
+         { return a.id > b.id; });
 
     auto its1 = records.begin(), its2 = records.begin();
     while (its2 != records.end())
     {
-        while ((its2 + 1)->first == its1->first)
+        while ((its2 + 1)->id == its1->id)
             ++its2;
-        sort(its1, its2 + 1, [](pair<string, int> a, pair<string, int> b)
-             { return a.second < b.second; });
+        sort(its1, its2 + 1, [](record a, record b)
+             { return a.weight < b.weight; });
         ++its2;
         its1 = its2;
-    }
-
-    auto it0 = records.begin();
-    while(it0 != records.end())
-    {
-        if (it0 -> first == (it0 + 1) -> first && it0 -> second == (it0 + 1) -> second)
-            it0 = records.erase(it0);
-        else ++it0;
     }
 
     auto it = records.begin();
     while (it != records.end())
     {
-        cout << it->first << " " << it->second << endl;
+        if ((it + 1)->id == it->id && (it + 1)->weight == it-> weight)
+        {
+            ++it;
+            continue;
+        }
+        cout << it->id << " " << it->weight << endl;
         ++it;
     }
     return 0;
